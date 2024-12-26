@@ -1,0 +1,12 @@
+---
+import Icon from "../Icon.astro";
+const {categoria} = Astro.props;
+---
+
+<tr class="text-center border-2 text-ic-gray font-light">
+    <td class="border-2">{categoria.id}</td>
+    <td class="border-2">{categoria.name}</td>
+    <td class="border-2">{categoria.createdAt}</td>
+    <td class="border-2">{categoria.updatedAt}</td>
+    <td> <a href=""><Icon width=30 src="/pen-black.svg"/></a></td>
+</tr>
