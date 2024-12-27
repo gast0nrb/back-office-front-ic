@@ -1,6 +1,6 @@
 ---
 import Icon from "../Icon.astro";
-const {categoria} = Astro.props;
+const {categoria, url} = Astro.props;
 ---
 
 <tr class="text-center border-2 text-ic-gray font-light">
@@ -8,5 +8,5 @@ const {categoria} = Astro.props;
     <td class="border-2">{categoria.name}</td>
     <td class="border-2">{categoria.createdAt}</td>
     <td class="border-2">{categoria.updatedAt}</td>
-    <td> <a href=""><Icon width=30 src="/pen-black.svg"/></a></td>
+    <td> <a href={url}><Icon center="mx-auto hover:bg-ic-orange rounded-sm" width=30 src="/pen-black.svg"/></a></td>
 </tr>

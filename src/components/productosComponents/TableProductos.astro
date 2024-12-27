@@ -1,0 +1,85 @@
+---
+import RowTableCategorias from "../categoriaComponents/RowTableCategorias.astro";
+import RowTableProductos from "./RowTableProductos.astro";
+
+    const productos = [
+        {
+        codigo : "10049",
+        titulo : "Ampolleta 2 contactos 12 volt, blanco calido.",
+        descripcion : "Ampolleta 2 contactos 12 volt, 55 watts, pata pareja, luz blanco calido.",
+        activo : true,
+        file : "/urlProducto",
+        barra : "10049" ,
+        createdAt : Date.now(),
+        updatedAt  : Date.now(),
+        CATEGORIum : {
+            id : 3,
+            nombre : "Ampolletas"
+        },
+        ListaProductos : [
+        {
+            fk_producto : "10049",
+            fk_lista : 2,
+            monto : 1500,
+            cantidad_min : 1,
+            descuento : 0,
+        }
+        ]
+
+    },
+     {
+        codigo : "10064",
+        titulo : "Ampolleta 2 contactos 12 volt, blanco calido.",
+        descripcion : "Ampolleta 2 contactos 12 volt, 55 watts, pata pareja, luz blanco calido.",
+        activo : true,
+        file : "/urlProducto",
+        barra : "10064" ,
+        createdAt : Date.now(),
+        updatedAt  : Date.now(),
+        CATEGORIum : {
+            id : 3,
+            nombre : "Ampolletas"
+        },
+        ListaProductos : [
+        {
+            fk_producto : "10064",
+            fk_lista : 2,
+            monto : 1500,
+            cantidad_min : 1,
+            descuento : 0,
+            ListaPrecio : {
+                id : 2,
+                nombre : "Mayorista"
+            }
+        },
+        {
+            fk_producto : "10064",
+            fk_lista : 1,
+            monto : 3000,
+            cantidad_min : 1,
+            descuento : 0,
+            ListaPrecio : {
+                id : 1, 
+                nombre : "Detalle"
+            }
+        }
+        ]
+
+    }
+    ];
+---
+
+<table class="mx-auto phone:text-xs tablet:text-lg laptop:text-2xl" style="width:90%">
+    <tr class="border-b-2 text-center">
+        <td class="border-r-2">Codigo</td>
+        <td class="border-r-2">Titulo</td>
+        <td class="border-r-2">Precio</td>
+        <td class="border-r-2">Activo</td>
+        <td class="border-r-2">Categoria</td>
+        <td class="">Accion</td>
+        {
+            productos.map((producto)=> <RowTableProductos producto={producto}/>)
+        }
+    </tr>
+</table>
+

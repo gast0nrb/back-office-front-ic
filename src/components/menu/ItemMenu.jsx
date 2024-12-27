@@ -1,7 +1,7 @@
-const ItemMenu = ({name}) => {
+const ItemMenu = ({name, url}) => {
     return (
-    <li class="mx-1">
-        <a href="">{name}</a>
+    <li className="">
+        <a className="hover:bg-ic-orange px-0.5" href={url}>{name}</a>
     </li>
     )
 }

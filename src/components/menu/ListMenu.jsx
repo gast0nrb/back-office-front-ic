@@ -2,11 +2,11 @@ import ItemMenu from "./ItemMenu"
 
 const ListMenu = () => {
     return (
-<ul class="justify-center">
-    <ItemMenu name="Inicio"/>
-    <ItemMenu name="Productos"/>
-    <ItemMenu name="Categorias"/>
-    <ItemMenu name="Informes"/>
+<ul className="">
+    <ItemMenu url={"/"} name="Inicio"/>
+    <ItemMenu url={"/productos"} name="Productos"/>
+    <ItemMenu url={"/categorias"} name="Categorias"/>
+    <ItemMenu url={"/informes"} name="Informes"/>
 </ul>
     )
 }

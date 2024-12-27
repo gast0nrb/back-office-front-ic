@@ -1,5 +1,5 @@
 ---
-    const {width, src} = Astro.props;
+    const {width, src, center} = Astro.props;
 ---
 
-<img class="mx-auto" src={src} alt="" width={width}>
+<img class={center} src={src} alt="" width={width}>
