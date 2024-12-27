@@ -1,15 +1,15 @@
 ---
     import Icon from "../Icon.astro";
     const {producto} = Astro.props;
-    const precio = producto.ListaProductos.filter((lp)=> lp.fk_lista == 2)[0].monto
+    const precio = producto.ListaProductos.filter((lp:any)=> lp.fk_lista == 2)[0].monto
 ---
 
-<tr class="text-center phone:text-xs tablet:text-lg laptop:text-xl border-2">
-    <td class="border-r-2">{producto.codigo}</td>
-    <td class="border-r-2">{producto.titulo}</td>
-    <td class="border-r-2">{precio? precio : 0}</td> 
-    <td class="border-r-2">{producto.activo ? "Activo" : "Inactivo" }</td>
-    <td class="border-r-2">{producto.CATEGORIum.nombre}</td>
+<tr class="group text-center phone:text-xs tablet:text-lg laptop:text-xl border-ic-blackorange border-b-2 text-ic-gray">
+    <td class="group-hover:text-ic-orange tablet:px-2">{producto.codigo}</td>
+    <td class="">{producto.titulo}</td>
+    <td class="tablet:px-2">${precio? precio : 0}</td> 
+    <td class="tablet:px-2">{producto.activo ? "Si" : "No" }</td>
+    <td class="tablet:px-2">{producto.CATEGORIum.nombre}</td>
     <td class="">
         <a href="/mantenedorProducto">
             <Icon width={30} center="mx-auto hover:bg-ic-orange rounded-sm p-0.5" src="/pen-black.svg"/>

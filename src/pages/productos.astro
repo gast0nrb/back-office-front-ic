@@ -2,9 +2,20 @@
 import Layout from "../layouts/Layout.astro";
 import Back from "../components/Back.astro";
 import TableProductos from "../components/productosComponents/TableProductos.astro";
+import TextFilter from "../components/productosComponents/TextFilter.astro";
+import Find from "../components/productosComponents/Find.astro";
 
+const filter = false; //Se toma los params, si es que existe un parametro hay un filtro,
+//Por lo cual, la página estará filtrada y desplegará textFilter element, sino, no lo filtra.
 ---
 <Back url="/"/>
-
+<h1 class="text-center my-3 phone:text-xl tablet:text-2xl font-semibold text-ic-orange">LISTADO PRODUCTOS</h1>
+<Find/>
+{
+filter ?
+<TextFilter filter="Hello"/>
+:
+<></>
+}
 <TableProductos/>
 <Layout/>

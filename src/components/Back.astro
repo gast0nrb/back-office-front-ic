@@ -1,12 +1,16 @@
 ---
 import Icon from "./Icon.astro";
 
-    const {url} = Astro.props;
+const { url } = Astro.props;
 ---
 
 <div class="flex-wrap ml-3 mt-5 w-1/12">
-    <h3 class="text-ic-gray">Regresar</h3>
-    <a class="p-0" href={url}>
-        <Icon center="mx-4 hover:bg-ic-orange rounded-sm duration-200" width={40} src={"/back-1.svg"}/>
-    </a>
+  <h3 class="text-ic-white">Regresar</h3>
+  <a class="p-0" href={url}>
+    <Icon
+      center="mx-4 hover:bg-ic-orange rounded-sm duration-200"
+      width={40}
+      src={"/back-1.svg"}
+    />
+  </a>
 </div>
