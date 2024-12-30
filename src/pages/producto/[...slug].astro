@@ -1,0 +1,21 @@
+---
+import ImageProducto from "../../components/productoComponent/ImageProducto.astro";
+import Layout from "../../layouts/Layout.astro";
+import Back from "../../components/Back.astro";
+import FormProducto from "../../components/productoComponent/FormProducto.astro";
+
+const { slug } = Astro.params;
+
+if (slug === undefined) {
+  throw new Error("Slug is required");
+}
+---
+
+<Back url="/productos" />
+<h1
+  class="text-center phone:text-lg tablet:text-2xl bg-ic-orange w-fit px-2 rounded-sm mx-auto my-4 text-ic-black"
+>
+  MANTENEDOR PRODUCTOS
+</h1>
+    <FormProducto slug={slug}/> 
+<Layout />

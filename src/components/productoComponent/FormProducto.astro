@@ -1,0 +1,16 @@
+---
+import SectionPrecios from "./SectionPrecios.astro";
+import SectionProducto from "./SectionProducto.astro";
+import SectionCategory from "./SectionCategory.astro"
+import SubmitProduct  from "./SubmitProduct.astro"
+const {slug} = Astro.props;
+---
+
+<form class="mb-36">
+    <SectionProducto slug={slug}/>
+    <div class="tablet:flex">
+    <SectionPrecios/>
+    <SectionCategory/>
+    </div>
+    <SubmitProduct/>
+</form>

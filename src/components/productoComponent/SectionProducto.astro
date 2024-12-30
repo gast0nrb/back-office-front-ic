@@ -1,0 +1,47 @@
+---
+import ImageProducto from "./ImageProducto.astro";
+
+const { slug } = Astro.props;
+---
+
+<div class="tablet:grid tablet:grid-cols-3">
+  <ImageProducto file="/defaultFile.png" />
+  <div class="col-span-2 grid grid-cols-1 mx-2">
+    <label for="codigo" class="text-ic-gray text-xl mt-auto">Codigo: </label>
+    <input
+      id="codigo"
+      value={slug}
+      class="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+      disabled
+    />
+    <label for="codigo" class="text-ic-gray text-xl mt-auto">File: </label>
+    <input
+      id="codigo"
+      class="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+      disabled
+    />
+    <label for="barra" class="text-ic-gray text-xl mt-auto">Cod Barra: </label>
+    <input
+      id="barra"
+      class="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+      disabled
+    />
+    <label for="title" class="text-ic-gray text-xl mt-auto">Titulo: </label>
+    <input
+      id="title"
+      class="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+      disabled
+    />
+    <label for="codigo" class="text-ic-gray text-xl mt-auto">Descripcion: </label>
+    <textarea
+      id="codigo"
+      class="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+      disabled></textarea>
+        <label for="title" class="text-ic-gray text-xl mt-auto">Costo: </label>
+    <input
+      id="title"
+      class="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+      disabled
+    />
+  </div>
+</div>
