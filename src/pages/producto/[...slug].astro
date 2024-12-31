@@ -1,8 +1,8 @@
 ---
-import ImageProducto from "../../components/productoComponent/ImageProducto.astro";
 import Layout from "../../layouts/Layout.astro";
 import Back from "../../components/Back.astro";
-import FormProducto from "../../components/productoComponent/FormProducto.astro";
+import FormProducto from "../../components/productoComponent/FormProducto.jsx";
+import FindProduct from "../../components/productoComponent/FindProduct.jsx";
 
 const { slug } = Astro.params;
 
@@ -15,7 +15,8 @@ if (slug === undefined) {
 <h1
   class="text-center phone:text-lg tablet:text-2xl bg-ic-orange w-fit px-2 rounded-sm mx-auto my-4 text-ic-black"
 >
-  MANTENEDOR PRODUCTOS
+  FICHA PRODUCTOS
 </h1>
-    <FormProducto slug={slug}/> 
+    <FindProduct client:load/>
+    <FormProducto codigo={slug} client:load/>
 <Layout />
