@@ -3,10 +3,8 @@ import Icon from "../Icon.astro";
 const {categoria, url} = Astro.props;
 ---
 
-<tr class="text-center border-2 text-ic-gray font-light">
-    <td class="border-2">{categoria.id}</td>
-    <td class="border-2">{categoria.name}</td>
-    <td class="border-2">{categoria.createdAt}</td>
-    <td class="border-2">{categoria.updatedAt}</td>
+<tr class="group text-center text-ic-gray font-light border-b-2 border-ic-blackorange">
+    <td class="group-hover:text-ic-orange">{categoria.id}</td>
+    <td class="">{categoria.nombre}</td>
     <td> <a href={url}><Icon center="mx-auto hover:bg-ic-orange rounded-sm" width=30 src="/eye.svg"/></a></td>
 </tr>

@@ -1,19 +1,30 @@
 ---
 import RowTableCategorias from "./RowTableCategorias.astro"
-const categoria = {
-    id : 1,
-    name : "Ampolletas",
-    updatedAt : '22/03/2024',
-    createdAt : '01/01/2024'
+
+const getCategorias = async() => {
+    try{
+        const fetchCategorias = await fetch(`http://localhost:8000/api/v0.5/webintercar/categorias`)
+        const jsonCategorias = await fetchCategorias.json()
+        return jsonCategorias.data
+    }catch(err) {
+       console.log(err) 
+       return ["error"]
+    }
 }
+
+
+const categorias = await getCategorias()
+
 ---
 <table style="width:70%" class="mx-auto my-3 phone:text-xs tablet:text-sm">
-    <tr class="text-center border-2 font-semibold text-ic-gray">
-        <td class="border-2 px-0.5">Id</td>
-        <td class="border-2 px-0.5">Nombre</td>
-        <td class="border-2 px-0.5">Creado</td>
-        <td class="border-2 px-0.5">Modificado</td>
-        <td class="border-2 px-0.5">Ajustar</td>
+    <tr class="text-center font-semibold text-ic-gray border-b-2 border-ic-message">
+        <td class=" px-0.5">Id</td>
+        <td class=" px-0.5">Nombre</td>
+        <td class=" px-0.5">Ajustar</td>
     </tr>
-    <RowTableCategorias url={"/mantenedorCategorias"} categoria={categoria} />
+    {
+    categorias.map((v:any)=> 
+    <RowTableCategorias url={"/mantenedorCategorias"} categoria={v} />
+)
+    }
 </table>

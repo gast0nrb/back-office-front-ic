@@ -2,7 +2,7 @@ import ItemMenu from "./ItemMenu"
 
 const ListMenu = () => {
     return (
-<ul className="">
+<ul className="bg-ic-disabled w-min rounded-sm mx-auto">
     <ItemMenu url={"/"} name="Inicio"/>
     <ItemMenu url={"/productos"} name="Productos"/>
     <ItemMenu url={"/categorias"} name="Categorias"/>
