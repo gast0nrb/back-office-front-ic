@@ -1,15 +1,7 @@
 import ImageProducto from "./ImageProducto.jsx";
+import InputForm from "./InputForm.jsx";
 
-const SectionProducto = ({
-  codigo,
-  file,
-  barra,
-  titulo,
-  descripcion,
-  edit,
-  setEditProduct,
-  editProduct,
-}) => {
+const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
   return (
     <div className="tablet:grid tablet:grid-cols-3">
       <ImageProducto file="/defaultFile.png" />
@@ -19,65 +11,51 @@ const SectionProducto = ({
         </label>
         <input
           id="codigo"
-          value={codigo}
+          value={product.codigo}
           className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
           disabled={true}
         />
-        <label for="codigo" className="text-ic-gray text-xl mt-auto">
-          File:
-        </label>
-        <input
-          defaultValue={file}
-          onChange={(e) =>
-            setEditProduct({ ...editProduct, file: e.target.value })
-          }
-          id="codigo"
-          className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-          disabled={!edit}
+        <InputForm
+          forName={"file"}
+          id={"file"}
+          name={"file"}
+          type={"text"}
+          value={product.file}
+          allowEdit={edit}
+          titleLabel={"File"}
+          onChange={(e) => {
+            setEditProduct({ ...editProduct, file: e.target.value });
+          }}
         />
-        <label for="barra" className="text-ic-gray text-xl mt-auto">
-          Cod Barra:
-        </label>
-        <input
-          id="barra"
-          defaultValue={barra}
-          onChange={(e) =>
-            setEditProduct({ ...editProduct, barra: e.target.value })
-          }
-          className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-          disabled={!edit}
+        <InputForm
+          forName={"barra"}
+          id={"barra"}
+          name={"barra"}
+          type={"text"}
+          value={product.barra}
+          allowEdit={edit}
+          titleLabel={"Codigo de barra"}
+          onChange={(e)=> {
+            setEditProduct({...editProduct, barra : e.target.value})
+          }}
         />
-        <label for="title" className="text-ic-gray text-xl mt-auto">
-          Titulo:{" "}
-        </label>
-        <input
-          id="title"
-          defaultValue={titulo}
-          className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-          disabled={!edit}
-          onChange={(e) =>
-            setEditProduct({ ...editProduct, title: e.target.value })
-          }
+        <InputForm
+          forName={"title"}
+          id={"title"}
+          name={"title"}
+          type={"text"}
+          value={product.titulo}
+          allowEdit={edit}
+          titleLabel={"Titulo"}
         />
-        <label for="codigo" className="text-ic-gray text-xl mt-auto">
-          Descripcion:{" "}
-        </label>
-        <textarea
-          id="codigo"
-          defaultValue={descripcion}
-          className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-          disabled={!edit}
-          onChange={(e) =>
-            setEditProduct({ ...editProduct, descripcion: e.target.value })
-          }
-        ></textarea>
-        <label for="costo" className="text-ic-gray text-xl mt-auto">
-          Costo:{" "}
-        </label>
-        <input
-          id="costo"
-          className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-          disabled={true}
+        <InputForm
+          forName={"description"}
+          id={"description"}
+          name={"description"}
+          type={"textarea"}
+          value={product.descripcion}
+          allowEdit={edit}
+          titleLabel={"Descripcion"}
         />
       </div>
     </div>
