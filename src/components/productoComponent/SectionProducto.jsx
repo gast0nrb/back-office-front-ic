@@ -35,8 +35,8 @@ const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
           value={product.barra}
           allowEdit={edit}
           titleLabel={"Codigo de barra"}
-          onChange={(e)=> {
-            setEditProduct({...editProduct, barra : e.target.value})
+          onChange={(e) => {
+            setEditProduct({ ...editProduct, barra: e.target.value });
           }}
         />
         <InputForm
@@ -47,6 +47,9 @@ const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
           value={product.titulo}
           allowEdit={edit}
           titleLabel={"Titulo"}
+          onChange={(e)=> {
+            setEditProduct({...editProduct, titulo : e.target.value})
+          }}
         />
         <InputForm
           forName={"description"}
@@ -56,6 +59,9 @@ const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
           value={product.descripcion}
           allowEdit={edit}
           titleLabel={"Descripcion"}
+          onChange={(e)=> {
+            setEditProduct({...editProduct, descripcion : e.target.value})
+          }}
         />
       </div>
     </div>
