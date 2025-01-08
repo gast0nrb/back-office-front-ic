@@ -4,7 +4,10 @@ const FindProduct = () => {
   const [currentCode, setCurrentCode] = useState("");
 
   return (
-    <form action={`/producto/${currentCode}`} className="phone:text-center tablet:text-right mx-2 tablet:flex tablet:gap-2">
+    <form
+      action={`/producto/${currentCode}`}
+      className="phone:text-center tablet:text-right mx-2 tablet:flex tablet:gap-2"
+    >
       <h3 className="text-ic-gray">Buscar otro producto</h3>
       <input
         onChange={(e) => setCurrentCode(e.target.value)}

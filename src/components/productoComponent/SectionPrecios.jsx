@@ -6,7 +6,7 @@ const SectionPrecios = ({
   descuentoDetalle,
   edit,
   setEditProduct,
-  editProduct
+  editProduct,
 }) => {
   return (
     <div className="tablet:basis-6/12 grid grid-cols-1 mx-2">

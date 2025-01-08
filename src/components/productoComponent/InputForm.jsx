@@ -3,7 +3,7 @@ const InputForm = ({
   forName,
   name,
   id,
-  value,
+  defaultValue,
   allowEdit,
   titleLabel,
   onChange,
@@ -14,8 +14,7 @@ const InputForm = ({
         {titleLabel}:
       </label>
       <input
-        placeholder={value}
-        defaultValue={value}
+        defaultValue={defaultValue}
         id={id}
         name={name}
         type={type}

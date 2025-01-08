@@ -1,17 +1,17 @@
 import ImageProducto from "./ImageProducto.jsx";
 import InputForm from "./InputForm.jsx";
 
-const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
+const SectionProducto = ({ originalValue, edit, product, setProduct }) => {
   return (
     <div className="tablet:grid tablet:grid-cols-3">
       <ImageProducto file="/defaultFile.png" />
       <div className="col-span-2 grid grid-cols-1 mx-2">
         <label for="codigo" class="text-ic-gray text-xl mt-auto">
-          Codigo:{" "}
+          Codigo:
         </label>
         <input
           id="codigo"
-          value={product.codigo}
+          value={originalValue.codigo}
           className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
           disabled={true}
         />
@@ -20,11 +20,11 @@ const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
           id={"file"}
           name={"file"}
           type={"text"}
-          value={product.file}
+          defaultValue={originalValue.file}
           allowEdit={edit}
           titleLabel={"File"}
           onChange={(e) => {
-            setEditProduct({ ...editProduct, file: e.target.value });
+            setProduct({ ...product, file: e.target.value.trim()});
           }}
         />
         <InputForm
@@ -32,11 +32,11 @@ const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
           id={"barra"}
           name={"barra"}
           type={"text"}
-          value={product.barra}
+          defaultValue={originalValue.barra}
           allowEdit={edit}
           titleLabel={"Codigo de barra"}
           onChange={(e) => {
-            setEditProduct({ ...editProduct, barra: e.target.value });
+            setProduct({ ...product, barra: e.target.value.trim() });
           }}
         />
         <InputForm
@@ -44,11 +44,11 @@ const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
           id={"title"}
           name={"title"}
           type={"text"}
-          value={product.titulo}
+          defaultValue={originalValue.titulo}
           allowEdit={edit}
           titleLabel={"Titulo"}
           onChange={(e)=> {
-            setEditProduct({...editProduct, titulo : e.target.value})
+            setProduct({...product, titulo : e.target.value.trim()})
           }}
         />
         <InputForm
@@ -56,11 +56,11 @@ const SectionProducto = ({ product, edit, setEditProduct, editProduct }) => {
           id={"description"}
           name={"description"}
           type={"textarea"}
-          value={product.descripcion}
+          defaultValue={originalValue.descripcion}
           allowEdit={edit}
           titleLabel={"Descripcion"}
           onChange={(e)=> {
-            setEditProduct({...editProduct, descripcion : e.target.value})
+            setProduct({...product, descripcion : e.target.value.trim()})
           }}
         />
       </div>
