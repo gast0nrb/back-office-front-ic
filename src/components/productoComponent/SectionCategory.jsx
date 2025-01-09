@@ -10,19 +10,21 @@ const SectionCategory = ({ allowEdit, setProduct, product, originalValue }) => {
         allowEdit={allowEdit}
         product={product}
         setProduct={setProduct}
+        originalValue={originalValue} 
       />
       <label for="title" class="flex gap-2 text-ic-gray text-xl mt-5 mx-auto">
         Producto activo:
       </label>
-      <input
-        id="title"
-        type="checkbox"
-        checked={originalValue.activo}
-        onChange={(e) => {
-          setProduct({ ...product, activo: e.target.value });
+      <select id="activo" className="text-center bg-ic-disabled rounded-sm text-ic-orange"
+        defaultValue={originalValue.activo}
+        disabled={!allowEdit}
+        onChange={(e)=> {
+          setProduct({...product, activo : e.target.value })    
         }}
-        className="rounded-sm text-center"
-      />
+      >
+        <option value="false">Inactivo</option>
+        <option value="true">Activo</option>
+      </select>
     </div>
   );
 };

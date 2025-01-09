@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const SelectCategorias = ({ product, setProduct, allowEdit }) => {
+const SelectCategorias = ({ product, setProduct, allowEdit, originalValue}) => {
   const [categories, setCategories] = useState([]);
   const [loaded, setLoaded] = useState(true)
 
@@ -30,15 +30,10 @@ const SelectCategorias = ({ product, setProduct, allowEdit }) => {
       <label for="codigo" class="text-ic-gray text-xl mt-auto">
         Categoria:
       </label>
-      {
-        !allowEdit? 
-        <input disabled className="text-ic-orange bg-ic-disabled text-center" type="text" 
-        value={` Id: ${categories[product.fk_categoria_producto -1].id} | ${categories[product.fk_categoria_producto - 1].nombre}`} />
-        :
       <select
         className="text-lg text-center bg-ic-disabled rounded-sm text-ic-orange"
         disabled={!allowEdit}
-        value={product.fk_categoria_producto}
+        defaultValue={originalValue.fk_categoria_producto}
         id="categorias"
         onChange={(e) => {
           setProduct({
@@ -51,7 +46,6 @@ const SelectCategorias = ({ product, setProduct, allowEdit }) => {
           categories.map((x, i)=> <option value={x.id} key={i}>{` Id: ${x.id} | ${x.nombre} `}</option>)
         }
       </select>
-  }
     </>
   );
 };

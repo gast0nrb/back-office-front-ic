@@ -23,7 +23,6 @@ const FormProducto = ({ codigo }) => {
       );
       const { data } = await fetchData.json();
       setOriginal(data.producto);
-      setProduct({...product, fk_categoria_producto: data.producto.fk_categoria_producto});
       setLoading(false);
     } catch (err) {
       console.log("error:", err);
@@ -33,10 +32,7 @@ const FormProducto = ({ codigo }) => {
 
   function confirmData(e) {
     e.preventDefault();
-    if (
-      Object.entries(product).length == 1 &&
-      product.fk_categoria_producto == originalValue.fk_categoria_producto
-    ) {
+    if (Object.entries(product).length == 0) {
       setError("¡Aún no se han realizado cambios!");
       return;
     }
@@ -51,7 +47,7 @@ const FormProducto = ({ codigo }) => {
     setConfirm(false);
     setAllowEdit(false);
     setError("")
-    setProduct({fk_categoria_producto : originalValue.fk_categoria_producto})
+    setProduct({})
   }
 
   //Get product with fetch in mount of component
@@ -65,6 +61,7 @@ const FormProducto = ({ codigo }) => {
         setProduct={setProduct}
         confirm={confirm}
         setConfirm={setConfirm}
+        originalValue={originalValue}
       />
       {loading ? (
         <h3>Cargando producto...</h3>

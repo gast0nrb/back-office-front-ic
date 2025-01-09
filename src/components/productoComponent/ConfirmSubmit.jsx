@@ -1,4 +1,4 @@
-const ConfirmSubmit = ({ product, confirm, setConfirm }) => {
+const ConfirmSubmit = ({ product, confirm, setConfirm, originalValue }) => {
   return (
     <>
       {confirm ? (
