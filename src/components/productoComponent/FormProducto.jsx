@@ -2,17 +2,17 @@ import SectionPrecios from "./SectionPrecios";
 import SectionProducto from "./SectionProducto";
 import SectionCategory from "./SectionCategory";
 import SubmitProduct from "./SubmitProduct";
-import { PureComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmSubmit from "./ConfirmSubmit";
 import ErrorMessage from "./ErrorMessage";
 
 const FormProducto = ({ codigo }) => {
-  const [product, setProduct] = useState({}); //Es el producto que se trae con fetch y que se modifica para enviar en el update
+  const [product, setProduct] = useState({}); //Producto que es traido con fetch y se utiliza para modificar los valores si se edita el formulario
   const [loading, setLoading] = useState(true); //Estado que valida si estamos cargando el componente con fethc
   const [allowEdit, setAllowEdit] = useState(false); //Cambia el estado a edición, habilita botones y además habilita inputs
-  const [originalValue, setOriginal] = useState({}); //Es el producto original que viene del fetch
-  const [confirm, setConfirm] = useState(false); //Estado que solicita confirmar si esta seguro de los cambios
-  const [error, setError] = useState(""); //Verifica que si hayan datos para enviar en el form
+  const [originalValue, setOriginal] = useState({}); //Es el producto original que viene del fetch y no es modificado, este se utiliza en los defaultValue de los inputs
+  const [confirm, setConfirm] = useState(false); //Estado que solicita confirmar si esta seguro de los cambios, despliega un menu para confirmar
+  const [error, setError] = useState(""); //Se activa y pone un string si existe un error
   const [submit, setSubmit] = useState(false); //Al confirmar que si desea cambiar se realiza el submit para realizar el update y envia la información a la base de datos
 
   //Function for get producto
@@ -23,6 +23,7 @@ const FormProducto = ({ codigo }) => {
       );
       const { data } = await fetchData.json();
       setOriginal(data.producto);
+      setProduct({...product, fk_categoria_producto: data.producto.fk_categoria_producto});
       setLoading(false);
     } catch (err) {
       console.log("error:", err);
@@ -30,8 +31,12 @@ const FormProducto = ({ codigo }) => {
     }
   };
 
-  function updateProduct() {
-    if (Object.entries(product).length == 0) {
+  function confirmData(e) {
+    e.preventDefault();
+    if (
+      Object.entries(product).length == 1 &&
+      product.fk_categoria_producto == originalValue.fk_categoria_producto
+    ) {
       setError("¡Aún no se han realizado cambios!");
       return;
     }
@@ -42,10 +47,11 @@ const FormProducto = ({ codigo }) => {
     }
   }
 
-  function resetProduct() {
+  function resetProduct(e) {
     setConfirm(false);
     setAllowEdit(false);
-    setProduct({});
+    setError("")
+    setProduct({fk_categoria_producto : originalValue.fk_categoria_producto})
   }
 
   //Get product with fetch in mount of component
@@ -63,13 +69,20 @@ const FormProducto = ({ codigo }) => {
       {loading ? (
         <h3>Cargando producto...</h3>
       ) : (
-        <form className="mb-36" onReset={resetProduct} action={updateProduct}>
+        <form className="mb-36" onReset={resetProduct}>
           <SectionProducto
             originalValue={originalValue}
             edit={allowEdit}
+            product={product}
             setProduct={setProduct}
           />
-          <div className="tablet:flex justify-center">
+          <div className="justify-center">
+            <SectionCategory
+              originalValue={originalValue}
+              allowEdit={allowEdit}
+              setProduct={setProduct}
+              product={product}
+            />
             <SectionPrecios
               detalle={
                 originalValue.ListaProductos.some((vl) => vl.fk_lista == 2)
@@ -110,17 +123,12 @@ const FormProducto = ({ codigo }) => {
               product={product}
               setProduct={setProduct}
             />
-            <SectionCategory
-              allowEdit={allowEdit}
-              setProduct={setProduct}
-              product={product}
-            />
           </div>
           <SubmitProduct
-            setProduct={setProduct}
             product={product}
             setAllowEdit={setAllowEdit}
             edit={allowEdit}
+            confirmData={confirmData}
           />
           <ErrorMessage message={error} />
         </form>

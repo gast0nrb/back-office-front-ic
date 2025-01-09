@@ -1,4 +1,4 @@
-const SubmitProduct = ({ setAllowEdit, edit }) => {
+const SubmitProduct = ({ setAllowEdit, edit, confirmData }) => {
   return (
     <div class="grid grid-cols-3 gap-2 my-5 px-2">
       <button
@@ -24,7 +24,7 @@ const SubmitProduct = ({ setAllowEdit, edit }) => {
       <button
         className="col-span-3 px-2 bg-ic-disabled rounded-sm enabled:hover:bg-ic-orange text-ic-gray enabled:hover:text-ic-white"
         disabled={!edit}
-        type="submit"
+        onClick={confirmData}
       >
         Guardar
       </button>

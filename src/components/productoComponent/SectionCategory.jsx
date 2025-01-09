@@ -1,74 +1,27 @@
-import { useEffect, useState } from "react";
+import SelectCategorias from "./SelectCategorias";
 
-const SectionCategory = ({
-  allowEdit,
-  setProduct,
-  product,
-}) => {
-  const [categories, setCategories] = useState([]);
-  async function getCategories() {
-    try {
-      const fetchCategories = await fetch(
-        "http://localhost:8000/api/v0.5/webintercar/categorias"
-      );
-      const jsonCategories = await fetchCategories.json();
-      setCategories(jsonCategories.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
+const SectionCategory = ({ allowEdit, setProduct, product, originalValue }) => {
   return (
     <div className="tablet:basis-5/12 grid grid-cols-1 mx-2">
       <h3 className="text-xl text-ic-message font-semibold text-center">
         Categorizacion
       </h3>
-      <label for="codigo" class="text-ic-gray text-xl mt-auto">
-        Categoria:
-      </label>
-      <select
-        className="text-lg text-center bg-ic-disabled rounded-sm text-ic-orange"
-        disabled={!allowEdit}
-        id={product.fk_categoria_producto}
-        defaultValue={product.fk_categoria_producto}
-        onChange={(e) => {
-          setProduct({
-            ...product,
-            fk_categoria_producto: e.target.value,
-          });
-        }}
-      >
-        {categories
-          .sort((a, b) => a.id > b.id)
-          .map((c) => (
-            <option
-              value={c.id}
-              key={c.id}
-            >{`Id: ${c.id} | Nombre: ${c.nombre}`}</option>
-          ))}
-      </select>
-      <label for="title" class="text-ic-gray text-xl mt-auto">
-        Activo:
+      <SelectCategorias
+        allowEdit={allowEdit}
+        product={product}
+        setProduct={setProduct}
+      />
+      <label for="title" class="flex gap-2 text-ic-gray text-xl mt-5 mx-auto">
+        Producto activo:
       </label>
       <input
         id="title"
         type="checkbox"
-        checked={product.activo}
-        className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled
-      />
-      <label for="title" class="text-ic-gray text-xl mt-auto">
-        Stock:{" "}
-      </label>
-      <input
-        id="title"
-        value={"Working at..."}
-        className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled
+        checked={originalValue.activo}
+        onChange={(e) => {
+          setProduct({ ...product, activo: e.target.value });
+        }}
+        className="rounded-sm text-center"
       />
     </div>
   );

@@ -24,8 +24,11 @@ const SectionProducto = ({ originalValue, edit, product, setProduct }) => {
           allowEdit={edit}
           titleLabel={"File"}
           onChange={(e) => {
-            setProduct({ ...product, file: e.target.value.trim()});
-          }}
+          setProduct({
+            ...product,
+            file: e.target.value.trim(),
+          });
+        }}
         />
         <InputForm
           forName={"barra"}
@@ -47,21 +50,19 @@ const SectionProducto = ({ originalValue, edit, product, setProduct }) => {
           defaultValue={originalValue.titulo}
           allowEdit={edit}
           titleLabel={"Titulo"}
-          onChange={(e)=> {
-            setProduct({...product, titulo : e.target.value.trim()})
-          }}
+          onChange={(e)=> setProduct({...product, titulo : e.target.value.trim()})}
         />
-        <InputForm
-          forName={"description"}
-          id={"description"}
-          name={"description"}
-          type={"textarea"}
+        <label for="descripcion" class="text-ic-gray text-xl mt-auto">
+          Descripción:
+        </label>
+        <textarea
+          id="descripcion"
           defaultValue={originalValue.descripcion}
-          allowEdit={edit}
-          titleLabel={"Descripcion"}
-          onChange={(e)=> {
-            setProduct({...product, descripcion : e.target.value.trim()})
+          onChange={(e) => {
+            setProduct({ ...product, descripcion: e.target.value.trim() });
           }}
+          className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+          disabled={!edit}
         />
       </div>
     </div>
