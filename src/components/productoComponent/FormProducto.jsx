@@ -54,6 +54,10 @@ const FormProducto = ({ codigo }) => {
   useEffect(() => {
     getProducto();
   }, []);
+
+  if(loading) {
+    return <h3>Cargandoo....</h3>
+  }
   return (
     <>
       <ConfirmSubmit
@@ -63,9 +67,6 @@ const FormProducto = ({ codigo }) => {
         setConfirm={setConfirm}
         originalValue={originalValue}
       />
-      {loading ? (
-        <h3>Cargando producto...</h3>
-      ) : (
         <form className="mb-36" onReset={resetProduct}>
           <SectionProducto
             originalValue={originalValue}
@@ -81,43 +82,9 @@ const FormProducto = ({ codigo }) => {
               product={product}
             />
             <SectionPrecios
-              detalle={
-                originalValue.ListaProductos.some((vl) => vl.fk_lista == 2)
-                  ? originalValue.ListaProductos.filter(
-                      (lp) => lp.fk_lista == 2
-                    )[0].monto
-                  : "Sin precio"
-              }
-              mayorista={
-                originalValue.ListaProductos.some((vl) => vl.fk_lista == 1)
-                  ? originalValue.ListaProductos.filter(
-                      (lp) => lp.fk_lista == 1
-                    )[0].monto
-                  : "Sin precio"
-              }
-              cantidadMinimaMayor={
-                originalValue.ListaProductos.some((vl) => vl.fk_lista == 1)
-                  ? originalValue.ListaProductos.filter(
-                      (lp) => lp.fk_lista == 1
-                    )[0].cantidad_min
-                  : "Sin precio"
-              }
-              descuentoMayorista={
-                originalValue.ListaProductos.some((vl) => vl.fk_lista == 1)
-                  ? originalValue.ListaProductos.filter(
-                      (lp) => lp.fk_lista == 1
-                    )[0].descuento
-                  : "Sin descuento"
-              }
-              descuentoDetalle={
-                originalValue.ListaProductos.some((vl) => vl.fk_lista == 2)
-                  ? originalValue.ListaProductos.filter(
-                      (lp) => lp.fk_lista == 2
-                    )[0].descuento
-                  : "Sin descuento"
-              }
-              edit={allowEdit}
-              product={product}
+              originalValue={originalValue}
+              allowEdit={allowEdit}
+              precios={originalValue.ListaProductos}
               setProduct={setProduct}
             />
           </div>
@@ -129,7 +96,6 @@ const FormProducto = ({ codigo }) => {
           />
           <ErrorMessage message={error} />
         </form>
-      )}
     </>
   );
 };
