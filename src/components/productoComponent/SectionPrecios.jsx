@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 const SectionPrecios = ({ allowEdit, setEditProduct, precios, editProduct }) => {
-  
   return (
     <div className="tablet:basis-6/12 grid grid-cols-1 mx-2">
       <h3 class="text-xl text-ic-message font-semibold text-center">Valores</h3>
@@ -10,7 +9,13 @@ const SectionPrecios = ({ allowEdit, setEditProduct, precios, editProduct }) => 
       </label>
       <input
         id="codigo"
-        defaultValue={0}
+        defaultValue={
+          precios.some((p)=> p.fk_lista == 1)
+          ?
+          precios.filter((price)=> price.fk_lista == 1)[0].monto
+          :
+          'Sin valor'
+        }
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
         disabled={!allowEdit}
       />
@@ -18,8 +23,14 @@ const SectionPrecios = ({ allowEdit, setEditProduct, precios, editProduct }) => 
         Cantidad minima mayor:
       </label>
       <input
+        defaultValue={
+         precios.some((p)=> p.fk_lista == 1)
+          ?
+          precios.filter((price)=> price.fk_lista == 1)[0].cantidad_min
+          :
+          'Sin valor'
+        }
         id="barra"
-        defaultValue={0}
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
         disabled={!allowEdit}
       />
@@ -27,7 +38,13 @@ const SectionPrecios = ({ allowEdit, setEditProduct, precios, editProduct }) => 
         Descuento mayor (%):
       </label>
       <input
-        defaultValue={0}
+        defaultValue={
+         precios.some((p)=> p.fk_lista == 1)
+          ?
+          precios.filter((price)=> price.fk_lista == 1)[0].descuento
+          :
+            'Sin valor'
+        }
         id="title"
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
         disabled={!allowEdit}
@@ -36,7 +53,13 @@ const SectionPrecios = ({ allowEdit, setEditProduct, precios, editProduct }) => 
         Precio detalle:
       </label>
       <input
-        defaultValue={0}
+        defaultValue={
+          precios.some((p)=> p.fk_lista == 2)
+          ?
+          precios.filter((price)=> price.fk_lista == 2)[0].monto
+          :
+          'Sin valor'
+        }
         id="title"
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
         disabled={!allowEdit}
@@ -45,7 +68,13 @@ const SectionPrecios = ({ allowEdit, setEditProduct, precios, editProduct }) => 
         Descuento detalle (%):
       </label>
       <input
-        defaultValue={0}
+        defaultValue={
+           precios.some((p)=> p.fk_lista == 2)
+          ?
+          precios.filter((price)=> price.fk_lista == 2)[0].descuento
+          :
+          'Sin valor'
+        }
         id="title"
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
         disabled={!allowEdit}
