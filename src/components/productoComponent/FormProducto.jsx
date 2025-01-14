@@ -15,6 +15,10 @@ const FormProducto = ({ codigo }) => {
   const [error, setError] = useState(""); //Se activa y pone un string si existe un error
   const [submit, setSubmit] = useState(false); //Al confirmar que si desea cambiar se realiza el submit para realizar el update y envia la información a la base de datos
 
+  //set prices
+  const [detalle, setDetalle] = useState({fk_lista : 2})
+  const [mayorista, setMayorista] = useState({fk_lista : 1})
+
   //Function for get producto
   const getProducto = async () => {
     try {
@@ -31,8 +35,18 @@ const FormProducto = ({ codigo }) => {
   };
 
   function confirmData(e) {
+    let check = true
+    if(Object.entries(product).length > 0){
+      check = false
+    }
+    if(Object.keys(mayorista).length > 1){
+      check = false
+    }
+    if(Object.keys(detalle).length > 1){
+      check = false
+    }
     e.preventDefault();
-    if (Object.entries(product).length == 0) {
+    if (check){
       setError("¡Aún no se han realizado cambios!");
       return;
     }
@@ -48,6 +62,8 @@ const FormProducto = ({ codigo }) => {
     setAllowEdit(false);
     setError("")
     setProduct({})
+    setMayorista({fk_lista : 1})
+    setDetalle({fk_lista : 2})
   }
 
   //Get product with fetch in mount of component
@@ -65,7 +81,8 @@ const FormProducto = ({ codigo }) => {
         setProduct={setProduct}
         confirm={confirm}
         setConfirm={setConfirm}
-        originalValue={originalValue}
+        mayor={mayorista}
+        detalle={detalle}
       />
         <form className="mb-36" onReset={resetProduct}>
           <SectionProducto
@@ -82,10 +99,12 @@ const FormProducto = ({ codigo }) => {
               product={product}
             />
             <SectionPrecios
-              originalValue={originalValue}
               allowEdit={allowEdit}
               precios={originalValue.ListaProductos}
-              setProduct={setProduct}
+              setMayorista={setMayorista}
+              setDetalle={setDetalle}
+              detalle={detalle}
+              mayorista={mayorista}
             />
           </div>
           <SubmitProduct
