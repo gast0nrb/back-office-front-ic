@@ -1,4 +1,34 @@
-const ConfirmSubmit = ({ product, confirm, setConfirm, mayor, detalle }) => {
+const ConfirmSubmit = ({ originalValue, product, confirm, setConfirm, mayor, detalle, codigo}) => {
+
+  async function updateProducto() {
+
+  }
+  async function changePrecio () {
+    let method = 'PUT'
+    const url = `http://localhost:8000/api/v0.5/webintercar/productos/${codigo}`
+    if (originalValue.ListaProductos.length <= 1) {
+      method = 'POST'
+    }
+    try{
+      console.log(mayor, detalle)
+    }catch(err){
+      console.log("err")
+    }finally {
+      console.log("setear valores")
+    }
+    /*try {
+       const fetchApi = await fetch(`http://localhost:8000/api/v0.5/webintercar/productos/${codigo}`, {
+        method : 'PUT', 
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({
+          
+        })
+      })
+*/
+  }
+
   return (
     <>
       {confirm ? (
@@ -58,7 +88,7 @@ const ConfirmSubmit = ({ product, confirm, setConfirm, mayor, detalle }) => {
               </button>
               <button
                 className="bg-ic-black rounded-sm hover:text-ic-white hover:bg-ic-orange"
-                type="submit"
+                onClick={updateProducto}
               >
                 Confirmar
               </button>

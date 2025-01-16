@@ -15,11 +15,11 @@ const FormProducto = ({ codigo }) => {
   const [error, setError] = useState(""); //Se activa y pone un string si existe un error
   const [submit, setSubmit] = useState(false); //Al confirmar que si desea cambiar se realiza el submit para realizar el update y envia la información a la base de datos
 
-  //set prices
+  /*Separación de las listas de precios, para hacer posteriormente el fetch update de estos valores.*/
   const [detalle, setDetalle] = useState({fk_lista : 2})
   const [mayorista, setMayorista] = useState({fk_lista : 1})
 
-  //Function for get producto
+  /*Obtiene los datos mediante fetch del producto especifico.*/
   const getProducto = async () => {
     try {
       const fetchData = await fetch(
@@ -33,7 +33,9 @@ const FormProducto = ({ codigo }) => {
       setLoading(false);
     }
   };
-
+  
+  /*Al presionar guardar, se renderiza si el producto fue editado o no.
+   **/
   function confirmData(e) {
     let check = true
     if(Object.entries(product).length > 0){
@@ -77,12 +79,14 @@ const FormProducto = ({ codigo }) => {
   return (
     <>
       <ConfirmSubmit
-        product={product}
         setProduct={setProduct}
         confirm={confirm}
         setConfirm={setConfirm}
+        product={product}
         mayor={mayorista}
         detalle={detalle}
+        codigo={codigo}
+        originalValue={originalValue}
       />
         <form className="mb-36" onReset={resetProduct}>
           <SectionProducto
@@ -108,7 +112,6 @@ const FormProducto = ({ codigo }) => {
             />
           </div>
           <SubmitProduct
-            product={product}
             setAllowEdit={setAllowEdit}
             edit={allowEdit}
             confirmData={confirmData}
