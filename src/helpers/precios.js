@@ -5,7 +5,7 @@ async function changePrecio(originalPrecios, precio) {
 	//Valida que hayan cambios en el objeto entregado
 	if(Object.entries(precio).length > 2){
 		//si encuentra el valor igual, realizar update
-		if(originalPrecios.?fk_lista == precio.fk_lista){
+		if(originalPrecios?.fk_lista == precio.fk_lista){
 			updatePrecio(precio);
 		}else{
 			postPrecio(precio);
