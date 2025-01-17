@@ -1,20 +1,6 @@
+import { changePrecio } from "../../helpers/precios";
+
 const ConfirmSubmit = ({ originalValue, product, confirm, setConfirm, mayor, detalle, codigo}) => {
-
-  async function changePrecio () {
-   console.log("Hello world") 
-    /*try {
-       const fetchApi = await fetch(`http://localhost:8000/api/v0.5/webintercar/productos/${codigo}`, {
-        method : 'PUT', 
-        headers : {
-          "Content-Type" : "application/json"
-        },
-        body : JSON.stringify({
-          
-        })
-      })
-*/
-  }
-
   return (
     <>
       {confirm ? (
@@ -74,7 +60,10 @@ const ConfirmSubmit = ({ originalValue, product, confirm, setConfirm, mayor, det
               </button>
               <button
                 className="bg-ic-black rounded-sm hover:text-ic-white hover:bg-ic-orange"
-                onClick={changePrecio}
+                onClick={(e)=> {
+                  changePrecio(originalValue.ListaProductos, mayor)
+                  changePrecio(originalValue.ListaProductos, detalle)
+                }}
               >
                 Confirmar
               </button>
