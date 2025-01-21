@@ -1,6 +1,17 @@
 import { changePrecio } from "../../helpers/precios";
+import { putProducto } from "../../helpers/producto.js";
 
-const ConfirmSubmit = ({ originalValue, product, confirm, setConfirm, mayor, detalle, codigo}) => {
+const ConfirmSubmit = ({
+  originalValue,
+  product,
+  confirm,
+  setConfirm,
+  mayor,
+  detalle,
+  codigo,
+  setSubmit,
+  resetProduct,
+}) => {
   return (
     <>
       {confirm ? (
@@ -15,41 +26,45 @@ const ConfirmSubmit = ({ originalValue, product, confirm, setConfirm, mayor, det
               Cambios realizados
             </h3>
             <ul className="text-sm mb-2">
-              <h3 className="font-semibold text-ic-gray">Propiedades del producto</h3>
+              <h3 className="font-semibold text-ic-gray">
+                Propiedades del producto
+              </h3>
               {Object.keys(product).map((k, i) => (
                 <li className="text-ic-white text-opacity-75" key={i}>
                   <span className="text-ic-orange">{k}:</span>
                   {Object.values(product)[i]}
                 </li>
               ))}
-              {
-                Object.keys(mayor).length == 1 ?
+              {Object.keys(mayor).length == 1 ? (
                 <></>
-                :
+              ) : (
                 <>
-                <h3 className="font-semibold text-ic-gray">Valores mayorista</h3>
-                {
-                  Object.keys(mayor).map((k,i)=> (
+                  <h3 className="font-semibold text-ic-gray">
+                    Valores mayorista
+                  </h3>
+                  {Object.keys(mayor).map((k, i) => (
                     <li className="text-ic-white text-opacity-75">
-                      <span className="text-ic-orange">{k}: </span> {Object.values(mayor)[i]}</li>
-                  ))
-                }
+                      <span className="text-ic-orange">{k}: </span>{" "}
+                      {Object.values(mayor)[i]}
+                    </li>
+                  ))}
                 </>
-              }
-              {
-                Object.keys(detalle).length == 1 ?
+              )}
+              {Object.keys(detalle).length == 1 ? (
                 <></>
-                :
+              ) : (
                 <>
-                <h3 className="font-semibold text-ic-gray">Valores detalle</h3>
-                {
-                  Object.keys(detalle).map((k,i)=> (
+                  <h3 className="font-semibold text-ic-gray">
+                    Valores detalle
+                  </h3>
+                  {Object.keys(detalle).map((k, i) => (
                     <li className="text-ic-white text-opacity-75">
-                      <span className="text-ic-orange">{k}: </span> {Object.values(detalle)[i]}</li>
-                  ))
-                }
+                      <span className="text-ic-orange">{k}: </span>{" "}
+                      {Object.values(detalle)[i]}
+                    </li>
+                  ))}
                 </>
-              }
+              )}
             </ul>
             <div className="grid tablet:grid-cols-2 phone:grid-cols-1 gap-4 text-ic-gray">
               <button
@@ -60,9 +75,12 @@ const ConfirmSubmit = ({ originalValue, product, confirm, setConfirm, mayor, det
               </button>
               <button
                 className="bg-ic-black rounded-sm hover:text-ic-white hover:bg-ic-orange"
-                onClick={(e)=> {
-                  changePrecio(originalValue.ListaProductos, mayor)
-                  changePrecio(originalValue.ListaProductos, detalle)
+                onClick={(e) => {
+                  changePrecio(originalValue.ListaProductos, mayor, codigo);
+                  changePrecio(originalValue.ListaProductos, detalle, codigo);
+                  putProducto(product, codigo);
+                  setSubmit(true);
+                  resetProduct();
                 }}
               >
                 Confirmar

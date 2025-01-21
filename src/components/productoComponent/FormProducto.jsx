@@ -5,6 +5,7 @@ import SubmitProduct from "./SubmitProduct";
 import { useEffect, useState } from "react";
 import ConfirmSubmit from "./ConfirmSubmit";
 import ErrorMessage from "./ErrorMessage";
+import Succesfully from "./Successfully.jsx";
 
 const FormProducto = ({ codigo }) => {
   const [product, setProduct] = useState({}); //Producto que es traido con fetch y se utiliza para modificar los valores si se edita el formulario
@@ -16,8 +17,8 @@ const FormProducto = ({ codigo }) => {
   const [submit, setSubmit] = useState(false); //Al confirmar que si desea cambiar se realiza el submit para realizar el update y envia la información a la base de datos
 
   /*Separación de las listas de precios, para hacer posteriormente el fetch update de estos valores.*/
-  const [detalle, setDetalle] = useState({fk_lista : 2})
-  const [mayorista, setMayorista] = useState({fk_lista : 1})
+  const [detalle, setDetalle] = useState({ fk_lista: 2 });
+  const [mayorista, setMayorista] = useState({ fk_lista: 1 });
 
   /*Obtiene los datos mediante fetch del producto especifico.*/
   const getProducto = async () => {
@@ -33,22 +34,22 @@ const FormProducto = ({ codigo }) => {
       setLoading(false);
     }
   };
-  
+
   /*Al presionar guardar, se renderiza si el producto fue editado o no.
    **/
   function confirmData(e) {
-    let check = true
-    if(Object.entries(product).length > 0){
-      check = false
+    let check = true;
+    if (Object.entries(product).length > 0) {
+      check = false;
     }
-    if(Object.keys(mayorista).length > 1){
-      check = false
+    if (Object.keys(mayorista).length > 1) {
+      check = false;
     }
-    if(Object.keys(detalle).length > 1){
-      check = false
+    if (Object.keys(detalle).length > 1) {
+      check = false;
     }
     e.preventDefault();
-    if (check){
+    if (check) {
       setError("¡Aún no se han realizado cambios!");
       return;
     }
@@ -62,10 +63,10 @@ const FormProducto = ({ codigo }) => {
   function resetProduct(e) {
     setConfirm(false);
     setAllowEdit(false);
-    setError("")
-    setProduct({})
-    setMayorista({fk_lista : 1})
-    setDetalle({fk_lista : 2})
+    setError("");
+    setProduct({});
+    setMayorista({ fk_lista: 1 });
+    setDetalle({ fk_lista: 2 });
   }
 
   //Get product with fetch in mount of component
@@ -73,8 +74,8 @@ const FormProducto = ({ codigo }) => {
     getProducto();
   }, []);
 
-  if(loading) {
-    return <h3>Cargandoo....</h3>
+  if (loading) {
+    return <h3>Cargandoo....</h3>;
   }
   return (
     <>
@@ -87,37 +88,40 @@ const FormProducto = ({ codigo }) => {
         detalle={detalle}
         codigo={codigo}
         originalValue={originalValue}
+        setSubmit={setSubmit}
+        resetProduct={resetProduct}
       />
-        <form className="mb-36" onReset={resetProduct}>
-          <SectionProducto
+      <form className="mb-36" onReset={resetProduct}>
+        <SectionProducto
+          originalValue={originalValue}
+          edit={allowEdit}
+          product={product}
+          setProduct={setProduct}
+        />
+        <div className="justify-center">
+          <SectionCategory
             originalValue={originalValue}
-            edit={allowEdit}
-            product={product}
+            allowEdit={allowEdit}
             setProduct={setProduct}
+            product={product}
           />
-          <div className="justify-center">
-            <SectionCategory
-              originalValue={originalValue}
-              allowEdit={allowEdit}
-              setProduct={setProduct}
-              product={product}
-            />
-            <SectionPrecios
-              allowEdit={allowEdit}
-              precios={originalValue.ListaProductos}
-              setMayorista={setMayorista}
-              setDetalle={setDetalle}
-              detalle={detalle}
-              mayorista={mayorista}
-            />
-          </div>
-          <SubmitProduct
-            setAllowEdit={setAllowEdit}
-            edit={allowEdit}
-            confirmData={confirmData}
+          <SectionPrecios
+            allowEdit={allowEdit}
+            precios={originalValue.ListaProductos}
+            setMayorista={setMayorista}
+            setDetalle={setDetalle}
+            detalle={detalle}
+            mayorista={mayorista}
           />
-          <ErrorMessage message={error} />
-        </form>
+        </div>
+        <SubmitProduct
+          setAllowEdit={setAllowEdit}
+          edit={allowEdit}
+          confirmData={confirmData}
+        />
+        <ErrorMessage message={error} setError={setError} />
+        <Succesfully submit={submit} setSubmit={setSubmit} />
+      </form>
     </>
   );
 };

@@ -1,4 +1,12 @@
-const ErrorMessage = ({ message }) => {
+import {useEffect} from 'react'
+const ErrorMessage = ({ message, setError }) => {
+
+  useEffect(()=> {
+    setTimeout(()=> {
+     setError("")
+    }, 3000)
+  }, [message])
+
   return (
     <>
       {message.length > 0 ? (
