@@ -34,11 +34,12 @@ const SelectCategorias = ({ product, setProduct, allowEdit, originalValue}) => {
         className="text-lg text-center bg-ic-disabled rounded-sm text-ic-orange"
         disabled={!allowEdit}
         defaultValue={originalValue.fk_categoria_producto}
+        value={product.fk_categoria_producto}
         id="categorias"
         onChange={(e) => {
           setProduct({
             ...product,
-            fk_categoria_producto: parseInt(e.target.value),
+            fk_categoria_producto: e.target.value,
           });
         }}
       >

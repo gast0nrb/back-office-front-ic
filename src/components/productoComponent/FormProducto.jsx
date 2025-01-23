@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import ConfirmSubmit from "./ConfirmSubmit";
 import ErrorMessage from "./ErrorMessage";
 import Succesfully from "./Successfully.jsx";
+import { changePrecio } from "../../helpers/precios";
+import { putProducto } from "../../helpers/producto.js";
 
 const FormProducto = ({ codigo }) => {
   const [product, setProduct] = useState({}); //Producto que es traido con fetch y se utiliza para modificar los valores si se edita el formulario
@@ -68,6 +70,26 @@ const FormProducto = ({ codigo }) => {
     setMayorista({ fk_lista: 1 });
     setDetalle({ fk_lista: 2 });
   }
+  async function submitProduct(e) {
+    e.preventDefault()
+    await changePrecio(originalValue.ListaProductos, mayorista, codigo);
+    await changePrecio(originalValue.ListaProductos, detalle, codigo);
+    await putProducto(product, codigo);
+    setSubmit(true);
+    setConfirm(false);
+    setAllowEdit(false);
+    setProduct({});
+    //estados para reiniciar el formulario
+    if(Object.keys(mayorista).length > 1){
+      console.log("Entramos")
+    }
+    if(Object.keys(detalle).length > 1) {
+      console.log("entramos detalle")
+    }
+    if(Object.keys(product).length > 0){
+      setOriginal({...originalValue, ...product})
+    }
+  }
 
   //Get product with fetch in mount of component
   useEffect(() => {
@@ -79,19 +101,14 @@ const FormProducto = ({ codigo }) => {
   }
   return (
     <>
+      <form className="mb-36" onReset={resetProduct} onSubmit={submitProduct}>
       <ConfirmSubmit
-        setProduct={setProduct}
         confirm={confirm}
-        setConfirm={setConfirm}
-        product={product}
-        mayor={mayorista}
         detalle={detalle}
-        codigo={codigo}
-        originalValue={originalValue}
-        setSubmit={setSubmit}
-        resetProduct={resetProduct}
+        mayor={mayorista}
+        product={product}
+        setConfirm={setConfirm}
       />
-      <form className="mb-36" onReset={resetProduct}>
         <SectionProducto
           originalValue={originalValue}
           edit={allowEdit}

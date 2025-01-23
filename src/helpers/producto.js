@@ -1,5 +1,6 @@
 export async function putProducto(product, codigo) {
   try {
+    console.log("updating the product")
     const putProducto = await fetch(
       `http://localhost:8000/api/v0.5/webintercar/productos/${codigo}`,
       {

@@ -1,16 +1,9 @@
-import { changePrecio } from "../../helpers/precios";
-import { putProducto } from "../../helpers/producto.js";
-
 const ConfirmSubmit = ({
-  originalValue,
   product,
   confirm,
   setConfirm,
   mayor,
-  detalle,
-  codigo,
-  setSubmit,
-  resetProduct,
+  detalle
 }) => {
   return (
     <>
@@ -74,14 +67,8 @@ const ConfirmSubmit = ({
                 Cancelar
               </button>
               <button
+                type="submit"
                 className="bg-ic-black rounded-sm hover:text-ic-white hover:bg-ic-orange"
-                onClick={(e) => {
-                  changePrecio(originalValue.ListaProductos, mayor, codigo);
-                  changePrecio(originalValue.ListaProductos, detalle, codigo);
-                  putProducto(product, codigo);
-                  setSubmit(true);
-                  resetProduct();
-                }}
               >
                 Confirmar
               </button>
