@@ -3,7 +3,7 @@ const InputForm = ({
   forName,
   name,
   id,
-  defaultValue,
+  value,
   allowEdit,
   titleLabel,
   onChange,
@@ -14,12 +14,11 @@ const InputForm = ({
         {titleLabel}:
       </label>
       <input
-        defaultValue={defaultValue}
+        value={value}
         id={id}
         name={name}
         type={type}
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled={!allowEdit}
         onChange={onChange}
       />
     </>

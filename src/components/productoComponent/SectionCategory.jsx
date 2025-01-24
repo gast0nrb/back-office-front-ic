@@ -7,7 +7,6 @@ const SectionCategory = ({ allowEdit, setProduct, product, originalValue }) => {
         Categorizacion
       </h3>
       <SelectCategorias
-        allowEdit={allowEdit}
         product={product}
         setProduct={setProduct}
         originalValue={originalValue} 
@@ -17,10 +16,6 @@ const SectionCategory = ({ allowEdit, setProduct, product, originalValue }) => {
       </label>
       <select id="activo" className="text-center bg-ic-disabled rounded-sm text-ic-orange"
         defaultValue={originalValue.activo}
-        disabled={!allowEdit}
-        onChange={(e)=> {
-          setProduct({...product, activo : e.target.value })    
-        }}
       >
         <option value="false">Inactivo</option>
         <option value="true">Activo</option>

@@ -1,19 +1,19 @@
 import SectionPrecios from "./SectionPrecios";
 import SectionProducto from "./SectionProducto";
 import SectionCategory from "./SectionCategory";
-import SubmitProduct from "./SubmitProduct";
 import { useEffect, useState } from "react";
 import ConfirmSubmit from "./ConfirmSubmit";
 import ErrorMessage from "./ErrorMessage";
 import Succesfully from "./Successfully.jsx";
-import { changePrecio } from "../../helpers/precios";
-import { putProducto } from "../../helpers/producto.js";
+import ButtonsForm from "./ButtonsForm.jsx";
+import CreateEdit from "./CreateEdit.jsx"
 
 const FormProducto = ({ codigo }) => {
-  const [product, setProduct] = useState({}); //Producto que es traido con fetch y se utiliza para modificar los valores si se edita el formulario
-  const [loading, setLoading] = useState(true); //Estado que valida si estamos cargando el componente con fethc
+  const [product, setProduct] = useState({}); //Se utiliza para ver los cambios realizados en un producto
   const [allowEdit, setAllowEdit] = useState(false); //Cambia el estado a edición, habilita botones y además habilita inputs
   const [originalValue, setOriginal] = useState({}); //Es el producto original que viene del fetch y no es modificado, este se utiliza en los defaultValue de los inputs
+  
+  //ESTADOS PARA MANEJAR EL FORMULARIO, DEsPLEGAR CONFIRMACIONES Y PERMITIR EDICIONES
   const [confirm, setConfirm] = useState(false); //Estado que solicita confirmar si esta seguro de los cambios, despliega un menu para confirmar
   const [error, setError] = useState(""); //Se activa y pone un string si existe un error
   const [submit, setSubmit] = useState(false); //Al confirmar que si desea cambiar se realiza el submit para realizar el update y envia la información a la base de datos
@@ -21,6 +21,9 @@ const FormProducto = ({ codigo }) => {
   /*Separación de las listas de precios, para hacer posteriormente el fetch update de estos valores.*/
   const [detalle, setDetalle] = useState({ fk_lista: 2 });
   const [mayorista, setMayorista] = useState({ fk_lista: 1 });
+
+  //Setea si el formulario esta en estado crear o en estado editar
+  const [isCreate, setCreate] = useState(false);
 
   /*Obtiene los datos mediante fetch del producto especifico.*/
   const getProducto = async () => {
@@ -36,59 +39,13 @@ const FormProducto = ({ codigo }) => {
       setLoading(false);
     }
   };
-
-  /*Al presionar guardar, se renderiza si el producto fue editado o no.
-   **/
-  function confirmData(e) {
-    let check = true;
-    if (Object.entries(product).length > 0) {
-      check = false;
-    }
-    if (Object.keys(mayorista).length > 1) {
-      check = false;
-    }
-    if (Object.keys(detalle).length > 1) {
-      check = false;
-    }
-    e.preventDefault();
-    if (check) {
-      setError("¡Aún no se han realizado cambios!");
-      return;
-    }
-    setConfirm(true);
-    if (confirm) {
-      setError("");
-      return;
-    }
-  }
-
-  function resetProduct(e) {
-    setConfirm(false);
-    setAllowEdit(false);
-    setError("");
-    setProduct({});
-    setMayorista({ fk_lista: 1 });
-    setDetalle({ fk_lista: 2 });
-  }
   async function submitProduct(e) {
-    e.preventDefault()
+    console.log("Submit producto")
+    /*
     await changePrecio(originalValue.ListaProductos, mayorista, codigo);
     await changePrecio(originalValue.ListaProductos, detalle, codigo);
     await putProducto(product, codigo);
-    setSubmit(true);
-    setConfirm(false);
-    setAllowEdit(false);
-    setProduct({});
-    //estados para reiniciar el formulario
-    if(Object.keys(mayorista).length > 1){
-      console.log("Entramos")
-    }
-    if(Object.keys(detalle).length > 1) {
-      console.log("entramos detalle")
-    }
-    if(Object.keys(product).length > 0){
-      setOriginal({...originalValue, ...product})
-    }
+    */
   }
 
   //Get product with fetch in mount of component
@@ -96,12 +53,13 @@ const FormProducto = ({ codigo }) => {
     getProducto();
   }, []);
 
-  if (loading) {
-    return <h3>Cargandoo....</h3>;
-  }
   return (
     <>
-      <form className="mb-36" onReset={resetProduct} onSubmit={submitProduct}>
+      <form className="mb-36" onSubmit={submitProduct}>
+      <CreateEdit 
+        setCreate={setCreate}
+        isCreate={isCreate}
+        /> 
       <ConfirmSubmit
         confirm={confirm}
         detalle={detalle}
@@ -111,6 +69,7 @@ const FormProducto = ({ codigo }) => {
       />
         <SectionProducto
           originalValue={originalValue}
+          setOriginal={setOriginal}
           edit={allowEdit}
           product={product}
           setProduct={setProduct}
@@ -131,10 +90,9 @@ const FormProducto = ({ codigo }) => {
             mayorista={mayorista}
           />
         </div>
-        <SubmitProduct
+        <ButtonsForm
           setAllowEdit={setAllowEdit}
           edit={allowEdit}
-          confirmData={confirmData}
         />
         <ErrorMessage message={error} setError={setError} />
         <Succesfully submit={submit} setSubmit={setSubmit} />

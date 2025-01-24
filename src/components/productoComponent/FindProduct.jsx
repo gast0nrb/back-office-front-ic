@@ -8,7 +8,7 @@ const FindProduct = () => {
       action={`/producto/${currentCode}`}
       className="phone:text-center tablet:text-right mx-2 tablet:flex tablet:gap-2"
     >
-      <h3 className="text-ic-gray">Buscar otro producto</h3>
+      <h3 className="text-ic-gray">Editar otro producto</h3>
       <input
         onChange={(e) => setCurrentCode(e.target.value)}
         id="code-find"

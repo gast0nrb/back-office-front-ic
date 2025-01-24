@@ -1,7 +1,7 @@
 import ImageProducto from "./ImageProducto.jsx";
 import InputForm from "./InputForm.jsx";
 
-const SectionProducto = ({ originalValue, edit, product, setProduct }) => {
+const SectionProducto = ({ originalValue, edit, setProduct, setOriginal }) => {
   return (
     <div className="tablet:grid tablet:grid-cols-3">
       <ImageProducto file="/defaultFile.png" />
@@ -11,58 +11,44 @@ const SectionProducto = ({ originalValue, edit, product, setProduct }) => {
         </label>
         <input
           id="codigo"
+          disabled
           value={originalValue.codigo}
           className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-          disabled={true}
         />
         <InputForm
           forName={"file"}
           id={"file"}
           name={"file"}
           type={"text"}
-          defaultValue={originalValue.file}
+          value={originalValue.file}
           allowEdit={edit}
           titleLabel={"File"}
-          onChange={(e) => {
-          setProduct({
-            ...product,
-            file: e.target.value.trim(),
-          });
-        }}
         />
         <InputForm
           forName={"barra"}
           id={"barra"}
           name={"barra"}
           type={"text"}
-          defaultValue={originalValue.barra}
+          value={originalValue.barra}
           allowEdit={edit}
           titleLabel={"Codigo de barra"}
-          onChange={(e) => {
-            setProduct({ ...product, barra: e.target.value.trim() });
-          }}
         />
         <InputForm
           forName={"title"}
           id={"title"}
           name={"title"}
           type={"text"}
-          defaultValue={originalValue.titulo}
+          value={originalValue.titulo}
           allowEdit={edit}
           titleLabel={"Titulo"}
-          onChange={(e)=> setProduct({...product, titulo : e.target.value.trim()})}
         />
         <label for="descripcion" class="text-ic-gray text-xl mt-auto">
           Descripción:
         </label>
         <textarea
           id="descripcion"
-          defaultValue={originalValue.descripcion}
-          onChange={(e) => {
-            setProduct({ ...product, descripcion: e.target.value.trim() });
-          }}
+          value={originalValue.descripcion}
           className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-          disabled={!edit}
         />
       </div>
     </div>

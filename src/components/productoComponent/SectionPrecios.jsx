@@ -7,91 +7,41 @@ const SectionPrecios = ({ allowEdit, precios, setMayorista, setDetalle, detalle,
       </label>
       <input
         id="monto-mayorista"
-        defaultValue={
-          precios.some((p)=> p.fk_lista == 1)
-          ?
-          precios.filter((price)=> price.fk_lista == 1)[0].monto
-          :
-          'Sin valor'
-        }
+        defaultValue={0}
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled={!allowEdit}
         required
-        onChange={(e)=> {
-          setMayorista({...mayorista, monto : e.target.value})
-        }}
       />
       <label for="barra" class="text-ic-gray text-xl mt-auto">
         Cantidad minima mayor:
       </label>
       <input
-        defaultValue={
-         precios.some((p)=> p.fk_lista == 1)
-          ?
-          precios.filter((price)=> price.fk_lista == 1)[0].cantidad_min
-          :
-          'Sin valor'
-        }
+        defaultValue={0}
         id="cantidad_min_mayor"
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled={!allowEdit}
-        onChange={(e)=> {
-          setMayorista({...mayorista, cantidad_min : e.target.value})
-        }}  
       />
       <label for="title" class="text-ic-gray text-xl mt-auto">
         Descuento mayor (%):
       </label>
       <input
-        defaultValue={
-         precios.some((p)=> p.fk_lista == 1)
-          ?
-          precios.filter((price)=> price.fk_lista == 1)[0].descuento
-          :
-            'Sin valor'
-        }
+        defaultValue={0}
         id="descuento-mayor"
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled={!allowEdit}
-        onChange={(e)=> {
-          setMayorista({...mayorista, descuento : e.target.value})
-        }}
       />
       <label for="title" class="text-ic-gray text-xl mt-auto">
         Precio detalle:
       </label>
       <input
-        defaultValue={
-          precios.some((p)=> p.fk_lista == 2)
-          ?
-          precios.filter((price)=> price.fk_lista == 2)[0].monto
-          :
-          'Sin valor'
-        }
+        defaultValue={0}
         id="precio-detalle"
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled={!allowEdit}
-        onChange={(e)=> {
-          setDetalle({...detalle, monto : e.target.value })
-        }}
       />
       <label for="descuento-detalle" class="text-ic-gray text-xl mt-auto">
         Descuento detalle (%):
       </label>
       <input
-        defaultValue={
-           precios.some((p)=> p.fk_lista == 2)
-          ?
-          precios.filter((price)=> price.fk_lista == 2)[0].descuento
-          :
-          'Sin valor'
-        }
+        defaultValue={0}
         id="descuento-detalle"
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        disabled={!allowEdit}
-        onChange={(e)=> {
-          setDetalle({...detalle, descuento : e.target.value})
-        }}
       />
     </div>
   );
