@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const SelectCategorias = ({ product, setProduct, allowEdit, originalValue}) => {
+const SelectCategorias = ({allowEdit, originalValue, setOriginal}) => {
   const [categories, setCategories] = useState([]);
   const [loaded, setLoaded] = useState(true)
 
@@ -32,12 +32,11 @@ const SelectCategorias = ({ product, setProduct, allowEdit, originalValue}) => {
       </label>
       <select
         className="text-lg text-center bg-ic-disabled rounded-sm text-ic-orange"
-        disabled={!allowEdit}
-        value={product.fk_categoria_producto}
+        value={originalValue.fk_categoria_producto}
         id="categorias" 
         onChange={(e) => {
-          setProduct({
-            ...product,
+          setOriginal({
+            ...originalValue,
             fk_categoria_producto: e.target.value,
           });
         }}

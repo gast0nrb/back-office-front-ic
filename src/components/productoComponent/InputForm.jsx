@@ -6,7 +6,7 @@ const InputForm = ({
   value,
   allowEdit,
   titleLabel,
-  onChange,
+  changeValue,
 }) => {
   return (
     <>
@@ -19,7 +19,7 @@ const InputForm = ({
         name={name}
         type={type}
         className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
-        onChange={onChange}
+        onChange={changeValue}
       />
     </>
   );

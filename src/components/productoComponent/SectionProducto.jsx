@@ -1,7 +1,7 @@
 import ImageProducto from "./ImageProducto.jsx";
 import InputForm from "./InputForm.jsx";
 
-const SectionProducto = ({ originalValue, edit, setProduct, setOriginal }) => {
+const SectionProducto = ({ originalValue, allowEdit, setOriginal }) => {
   return (
     <div className="tablet:grid tablet:grid-cols-3">
       <ImageProducto file="/defaultFile.png" />
@@ -21,8 +21,11 @@ const SectionProducto = ({ originalValue, edit, setProduct, setOriginal }) => {
           name={"file"}
           type={"text"}
           value={originalValue.file}
-          allowEdit={edit}
+          allowEdit={allowEdit}
           titleLabel={"File"}
+          changeValue={(e) => {
+            setOriginal({ ...originalValue, file: e.target.value });
+          }}
         />
         <InputForm
           forName={"barra"}
@@ -30,8 +33,11 @@ const SectionProducto = ({ originalValue, edit, setProduct, setOriginal }) => {
           name={"barra"}
           type={"text"}
           value={originalValue.barra}
-          allowEdit={edit}
+          allowEdit={allowEdit}
           titleLabel={"Codigo de barra"}
+          changeValue={(e) => {
+            setOriginal({ ...originalValue, barra: e.target.value });
+          }}
         />
         <InputForm
           forName={"title"}
@@ -39,8 +45,11 @@ const SectionProducto = ({ originalValue, edit, setProduct, setOriginal }) => {
           name={"title"}
           type={"text"}
           value={originalValue.titulo}
-          allowEdit={edit}
+          allowEdit={allowEdit}
           titleLabel={"Titulo"}
+          changeValue={(e) =>
+            setOriginal({ ...originalValue, titulo: e.target.value })
+          }
         />
         <label for="descripcion" class="text-ic-gray text-xl mt-auto">
           Descripción:
@@ -49,6 +58,9 @@ const SectionProducto = ({ originalValue, edit, setProduct, setOriginal }) => {
           id="descripcion"
           value={originalValue.descripcion}
           className="bg-ic-disabled rounded-sm text-center text-ic-orange text-lg"
+          onChange={(e) =>
+            setOriginal({ ...originalValue, descripcion: e.target.value })
+          }
         />
       </div>
     </div>
